@@ -57,7 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UserDefaults.standard.populateDefaultEmojis()
         UserDefaults.setMainIoRunning()
         UNUserNotificationCenter.current().delegate = self
-
+        
+        let version = PrivittyBridge.version()
+        logger.info("Privitty library version: \(version)")
+        
         let webPCoder = SDImageWebPCoder.shared
         SDImageCodersManager.shared.addCoder(webPCoder)
         let svgCoder = SDImageSVGKCoder.shared

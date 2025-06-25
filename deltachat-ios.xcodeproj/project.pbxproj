@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		21D54500299415B9008B54D5 /* Character+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D544FF299415B9008B54D5 /* Character+Extentions.swift */; };
 		21D6C941260623F500D0755A /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D6C9392606190600D0755A /* NotificationManager.swift */; };
+		2F38BEC02E0ADBB90040C792 /* libpriv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F38BEBF2E0ADBB90040C792 /* libpriv.a */; };
+		2F8E197D2E0C0920008AC5CE /* libgmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19742E0C0920008AC5CE /* libgmp.a */; };
+		2F8E197E2E0C0920008AC5CE /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19752E0C0920008AC5CE /* libsodium.a */; };
+		2F8E197F2E0C0920008AC5CE /* liblibwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19762E0C0920008AC5CE /* liblibwebp.a */; };
+		2F8E19802E0C0920008AC5CE /* libopencv_world.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19772E0C0920008AC5CE /* libopencv_world.a */; };
+		2F8E19812E0C0920008AC5CE /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19782E0C0920008AC5CE /* libprotobuf.a */; };
+		2F8E19822E0C0920008AC5CE /* libarchive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E19792E0C0920008AC5CE /* libarchive.a */; };
+		2F8E19832E0C0920008AC5CE /* liblibjpeg-turbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197A2E0C0920008AC5CE /* liblibjpeg-turbo.a */; };
+		2F8E19842E0C0920008AC5CE /* liblibpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197B2E0C0920008AC5CE /* liblibpng.a */; };
+		2F8E19852E0C0920008AC5CE /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197C2E0C0920008AC5CE /* libzlib.a */; };
 		3008CB7224F93EB900E6A617 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7124F93EB900E6A617 /* AudioMessageCell.swift */; };
 		3008CB7424F9436C00E6A617 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7324F9436C00E6A617 /* AudioPlayerView.swift */; };
 		3008CB7624F95B6D00E6A617 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7524F95B6D00E6A617 /* AudioController.swift */; };
@@ -304,6 +314,17 @@
 		0EEC8C8D7C6F411BA7A449DE /* Pods-deltachat-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-deltachat-ios.debug.xcconfig"; path = "Target Support Files/Pods-deltachat-ios/Pods-deltachat-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		21D544FF299415B9008B54D5 /* Character+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Extentions.swift"; sourceTree = "<group>"; };
 		21D6C9392606190600D0755A /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		2F38BEBF2E0ADBB90040C792 /* libpriv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpriv.a; sourceTree = "<group>"; };
+		2F38BEC62E0ADEA20040C792 /* PrivittyBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivittyBridgingHeader.h; sourceTree = "<group>"; };
+		2F8E19742E0C0920008AC5CE /* libgmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgmp.a; sourceTree = "<group>"; };
+		2F8E19752E0C0920008AC5CE /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
+		2F8E19762E0C0920008AC5CE /* liblibwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblibwebp.a; sourceTree = "<group>"; };
+		2F8E19772E0C0920008AC5CE /* libopencv_world.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopencv_world.a; sourceTree = "<group>"; };
+		2F8E19782E0C0920008AC5CE /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = "<group>"; };
+		2F8E19792E0C0920008AC5CE /* libarchive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libarchive.a; sourceTree = "<group>"; };
+		2F8E197A2E0C0920008AC5CE /* liblibjpeg-turbo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblibjpeg-turbo.a"; sourceTree = "<group>"; };
+		2F8E197B2E0C0920008AC5CE /* liblibpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblibpng.a; sourceTree = "<group>"; };
+		2F8E197C2E0C0920008AC5CE /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
 		3008CB7124F93EB900E6A617 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		3008CB7324F9436C00E6A617 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		3008CB7524F95B6D00E6A617 /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
@@ -689,6 +710,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F8E197D2E0C0920008AC5CE /* libgmp.a in Frameworks */,
+				2F8E197E2E0C0920008AC5CE /* libsodium.a in Frameworks */,
+				2F8E197F2E0C0920008AC5CE /* liblibwebp.a in Frameworks */,
+				2F8E19802E0C0920008AC5CE /* libopencv_world.a in Frameworks */,
+				2F8E19812E0C0920008AC5CE /* libprotobuf.a in Frameworks */,
+				2F8E19822E0C0920008AC5CE /* libarchive.a in Frameworks */,
+				2F8E19832E0C0920008AC5CE /* liblibjpeg-turbo.a in Frameworks */,
+				2F8E19842E0C0920008AC5CE /* liblibpng.a in Frameworks */,
+				2F8E19852E0C0920008AC5CE /* libzlib.a in Frameworks */,
+				2F38BEC02E0ADBB90040C792 /* libpriv.a in Frameworks */,
 				8A19190635E24C1DF7F0A35D /* Pods_deltachat_ios.framework in Frameworks */,
 				D89EC91A2D4BDEB800352298 /* PhotosUI.framework in Frameworks */,
 			);
@@ -977,6 +1008,7 @@
 				7A9FB14A1FB061E2001FEA36 /* Assets.xcassets */,
 				7A9FB14C1FB061E2001FEA36 /* LaunchScreen.storyboard */,
 				7A9FB14F1FB061E2001FEA36 /* Info.plist */,
+				2F38BEC62E0ADEA20040C792 /* PrivittyBridgingHeader.h */,
 			);
 			path = "deltachat-ios";
 			sourceTree = "<group>";
@@ -991,6 +1023,16 @@
 		7A9FB4F81FB084E6001FEA36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F8E19792E0C0920008AC5CE /* libarchive.a */,
+				2F8E19742E0C0920008AC5CE /* libgmp.a */,
+				2F8E197A2E0C0920008AC5CE /* liblibjpeg-turbo.a */,
+				2F8E197B2E0C0920008AC5CE /* liblibpng.a */,
+				2F8E19762E0C0920008AC5CE /* liblibwebp.a */,
+				2F8E19772E0C0920008AC5CE /* libopencv_world.a */,
+				2F8E19782E0C0920008AC5CE /* libprotobuf.a */,
+				2F8E19752E0C0920008AC5CE /* libsodium.a */,
+				2F8E197C2E0C0920008AC5CE /* libzlib.a */,
+				2F38BEBF2E0ADBB90040C792 /* libpriv.a */,
 				D89EC9192D4BDEB800352298 /* PhotosUI.framework */,
 				304219D1243F588500516852 /* DcCore.framework */,
 				787D6699229F2237000A7A9D /* libdeltachat.a */,
@@ -2286,6 +2328,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/deltachat-ios/libraries/deltachat-core-rust/deltachat-ffi",
 					"$(PROJECT_DIR)/deltachat-ios/libraries",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/deltachat-ios/libraries/priv_ios_sim",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -2322,6 +2366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = chat.delta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "deltachat-ios/PrivittyBridge.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -2355,6 +2400,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/deltachat-ios/libraries/deltachat-core-rust/deltachat-ffi",
 					"$(PROJECT_DIR)/deltachat-ios/libraries",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/deltachat-ios/libraries/priv_ios",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -2391,6 +2438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = chat.delta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "deltachat-ios/PrivittyBridge.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
