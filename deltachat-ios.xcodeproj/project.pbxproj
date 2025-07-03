@@ -19,6 +19,7 @@
 		2F8E19832E0C0920008AC5CE /* liblibjpeg-turbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197A2E0C0920008AC5CE /* liblibjpeg-turbo.a */; };
 		2F8E19842E0C0920008AC5CE /* liblibpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197B2E0C0920008AC5CE /* liblibpng.a */; };
 		2F8E19852E0C0920008AC5CE /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8E197C2E0C0920008AC5CE /* libzlib.a */; };
+		2FC2CE982E16AA73004B447B /* Privitty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC2CE972E16AA6A004B447B /* Privitty.swift */; };
 		3008CB7224F93EB900E6A617 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7124F93EB900E6A617 /* AudioMessageCell.swift */; };
 		3008CB7424F9436C00E6A617 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7324F9436C00E6A617 /* AudioPlayerView.swift */; };
 		3008CB7624F95B6D00E6A617 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3008CB7524F95B6D00E6A617 /* AudioController.swift */; };
@@ -325,6 +326,7 @@
 		2F8E197A2E0C0920008AC5CE /* liblibjpeg-turbo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "liblibjpeg-turbo.a"; sourceTree = "<group>"; };
 		2F8E197B2E0C0920008AC5CE /* liblibpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblibpng.a; sourceTree = "<group>"; };
 		2F8E197C2E0C0920008AC5CE /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
+		2FC2CE972E16AA6A004B447B /* Privitty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privitty.swift; sourceTree = "<group>"; };
 		3008CB7124F93EB900E6A617 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		3008CB7324F9436C00E6A617 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		3008CB7524F95B6D00E6A617 /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
@@ -1141,6 +1143,7 @@
 		AE851AC2227C695000ED86F0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				2FC2CE972E16AA6A004B447B /* Privitty.swift */,
 				30238CFE28A5554C00EF14AC /* FileHelper.swift */,
 				3067AAC52667F3FE00525036 /* ImageFormat.swift */,
 				305702A024C6453700D84EFC /* TypeAlias.swift */,
@@ -1794,6 +1797,7 @@
 				5F153E9A2CC38BAA00871ABE /* GiveBackMyFirstResponder.swift in Sources */,
 				302B84CE2397F6CD001C261F /* URL+Extension.swift in Sources */,
 				7A9FB1441FB061E2001FEA36 /* AppDelegate.swift in Sources */,
+				2FC2CE982E16AA73004B447B /* Privitty.swift in Sources */,
 				30C7D5EE28F47E620078D24C /* MessageCounter.swift in Sources */,
 				305501742798CDE1008FD5CA /* WebxdcViewController.swift in Sources */,
 				3034929F25752FC800A523D0 /* MediaPreview.swift in Sources */,

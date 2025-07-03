@@ -194,4 +194,28 @@ struct Utils {
             callback()
         }
     }
+
+    public static func isValidJson(_ jsonString: String) -> Bool {
+        // Replace single quotes with double quotes: naive approach for simple JSON
+        // This assumes single quotes are only used for keys and string values
+        let fixedJson = jsonString.replacingOccurrences(of: "'", with: "\"")
+
+        guard let data = fixedJson.data(using: .utf8) else {
+            return false
+        }
+
+        do {
+            _ = try JSONSerialization.jsonObject(with: data, options: [])
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    public static func jsonify(_ jsonString: String) -> String {
+        // Replace single quotes with double quotes: naive approach for simple JSON
+        // This assumes single quotes are only used for keys and string values
+        let fixedJson = jsonString.replacingOccurrences(of: "'", with: "\"")
+        return fixedJson
+    }
 }

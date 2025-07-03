@@ -58,9 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UserDefaults.setMainIoRunning()
         UNUserNotificationCenter.current().delegate = self
         
-        let version = PrivittyBridge.version()
-        logger.info("Privitty library version: \(version)")
-        
         let webPCoder = SDImageWebPCoder.shared
         SDImageCodersManager.shared.addCoder(webPCoder)
         let svgCoder = SDImageSVGKCoder.shared
@@ -71,6 +68,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         self.launchOptions = launchOptions
         continueDidFinishLaunchingWithOptions()
+
+        PrivittyBridge.startCallbackListener()
+        let version = PrivittyBridge.version()
+        logger.info("Privitty library version: \(version)")
+
+        let basePath = FileHelper.applicationSupportPath()
+        PrivittyBridge.startEventLoop(basePath)
+        logger.info("Privitty Event loop started")
+
         return true
     }
 
@@ -119,6 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             fatalError("window was nil in app delegate")
         }
         window.backgroundColor = UIColor.systemBackground
+
+        // Privitty specific configuration
+        dcAccounts.getSelected().setConfig("show_emails", "0")
 
         installEventHandler()
         relayHelper = RelayHelper.setup(dcAccounts.getSelected())
@@ -591,9 +600,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             guard let self else { return }
             let eventHandler = DcEventHandler(dcAccounts: self.dcAccounts)
             let eventEmitter = self.dcAccounts.getEventEmitter()
+            let dcContext = dcAccounts.getSelected()
             logger.info("➡️ event emitter started")
             while !shouldShutdownEventLoop {
                 guard let event = eventEmitter.getNextEvent() else { break }
+
+                // Privitty incoming events handling
+                if event.id == DC_EVENT_INCOMING_MSG {
+                    let chatIdInt = event.data1Int  // chat ID
+                    let msgIdInt = event.data2Int   // message ID
+                    let dcMsg = dcContext.getMessage(id: msgIdInt)
+
+                    if dcMsg.showPadlock(),
+                       !dcContext.getChat(chatId: chatIdInt).isContactRequest,
+                       Utils.isValidJson(dcMsg.subject) {
+
+                        do {
+                            logger.debug("Privitty: isSecure(): \(dcMsg.showPadlock())")
+                            let jsonifiedSubject = Utils.jsonify(dcMsg.subject)
+
+                            if let data = jsonifiedSubject.data(using: .utf8),
+                               let jSubject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                               let privittyValue = jSubject["privitty"] as? String,
+                               privittyValue.lowercased() == "true",
+                               let typeValue = jSubject["type"] as? String {
+
+                                if typeValue.lowercased() == "new_peer_concluded" {
+                                    logger.debug("Privitty: message -> new_peer_concluded, ignore it")
+                                    dcContext.deleteMessage(msgId: msgIdInt)
+                                    continue
+                                } else if typeValue.lowercased() == "new_group_concluded" {
+                                    logger.debug("Privitty: message -> new_group_concluded, ignore it")
+                                    dcContext.deleteMessage(msgId: msgIdInt)
+                                    continue
+                                }
+                                logger.debug("Privitty: message -> punt it to libpriv. Sub: \(dcMsg.subject)")
+
+                                if let text = dcMsg.text {
+                                    guard let chatId = Int32(exactly: chatIdInt),
+                                          let fromId = Int32(exactly: dcMsg.fromContactId),
+                                          let msgId = Int32(exactly: dcMsg.id) else {
+                                        logger.error("Privitty: ID overflow error")
+                                        continue
+                                    }
+
+                                    PrivittyBridge.produceEvent(
+                                        PrivittySDK.PrvEventType.prvEventReceivedPeerPdu.rawValue,
+                                        mID: "",
+                                        mName: "",
+                                        msgId: msgId,
+                                        fromId: fromId,
+                                        chatId: chatId,
+                                        pCode: "",
+                                        filePath: "",
+                                        fileName: "",
+                                        direction: 0,
+                                        pdu: text
+                                    )
+
+                                    dcContext.deleteMessage(msgId: msgIdInt)
+                                    continue
+                                } else {
+                                    logger.debug("Privitty: Failed to decode Base64 message text")
+                                }
+                            }
+                        } catch {
+                            logger.debug("Privitty: Exception in Privitty message: \(error.localizedDescription)")
+                        }
+                    }
+                }
+
                 eventHandler.handleEvent(event: event)
             }
             logger.info("⬅️ event emitter finished")

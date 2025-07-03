@@ -16,6 +16,7 @@ public class NotificationManager {
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationManager.handleIncomingReaction(_:)), name: Event.incomingReaction, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationManager.handleIncomingWebxdcNotify(_:)), name: Event.incomingWebxdcNotify, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationManager.handleMessagesNoticed(_:)), name: Event.messagesNoticed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePrivittyCallback(_:)), name: NSNotification.Name("PrivittyCallbackNotification"), object: nil)
     }
 
     deinit {
@@ -158,5 +159,23 @@ public class NotificationManager {
 
             UIApplication.shared.endBackgroundTask(backgroundTask) // this line must be reached to balance call to `beginBackgroundTask` above
         }
+    }
+
+    @objc private func handlePrivittyCallback(_ notification: Notification) {
+        guard let data = notification.object as? [String: Any],
+              let chatId = data["chatId"] as? Int,
+              let statusCode = data["statusCode"] as? Int,
+              let fwdToChatId = data["fwdToChatId"] as? Int,
+              let pdu = data["pdu"] as? Data else {
+            logger.error("Invalid callback data")
+            return
+        }
+
+        logger.info("Privitty iOS callback received:")
+        logger.info("chatId: \(chatId), statusCode: \(statusCode), fwdToChatId: \(fwdToChatId), pdu: \(pdu as NSData))")
+
+        /*
+         * Add all various kinds of message below:
+         */
     }
 }

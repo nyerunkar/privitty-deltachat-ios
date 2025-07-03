@@ -301,6 +301,21 @@ class InstantOnboardingViewController: UIViewController {
             appDelegate.registerForNotifications()
             appDelegate.reloadDcContext()
             appDelegate.prepopulateWidget()
+
+            PrivittyBridge.produceEvent(
+                PrivittySDK.PrvEventType.prvEventCreateVault.rawValue,
+                mID: self.dcContext.getConfig("addr") ?? "",
+                mName: self.dcContext.getConfig("displayname") ?? "",
+                msgId: 0,
+                fromId: 0,
+                chatId: 0,
+                pCode: self.dcContext.getConfig("mail_pw") ?? "",
+                filePath: "",
+                fileName: "",
+                direction: 0,
+                pdu: ""
+            )
+            logger.info("Privitty: Create new user account")
         }
     }
 
