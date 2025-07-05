@@ -53,6 +53,14 @@ public class DcContext {
         return DcMsg(pointer: messagePointer)
     }
 
+    public func setSubject(message: DcMsg, subject: String) {
+        dc_msg_set_subject(message.messagePointer, subject)
+    }
+
+    public func setText(message: DcMsg, text: String) {
+        dc_msg_set_text(message.messagePointer, text)
+    }
+
     public func getMessage(id: Int) -> DcMsg {
         let messagePointer = dc_get_msg(contextPointer, UInt32(id))
         return DcMsg(pointer: messagePointer)

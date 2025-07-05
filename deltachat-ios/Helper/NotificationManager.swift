@@ -177,5 +177,172 @@ public class NotificationManager {
         /*
          * Add all various kinds of message below:
          */
+
+        if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusVaultIsReady.rawValue {
+            logger.debug("Privitty: Congratulations! Vault is created\n")
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusSendPeerPdu.rawValue {
+            logger.debug("Privitty: Send add new peer request to chatId: \(chatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'new_peer_add'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusForwardPdu.rawValue {
+            logger.debug("SWIFT-Privitty: Forward pdu to forwardToChatId: \(fwdToChatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'forward_add_request'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: fwdToChatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerAddComplete.rawValue {
+            logger.debug("SWIFT-Privitty: Congratulations! Add new peer handshake is complete with chatID: \(chatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'new_peer_complete'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerAddConcluded.rawValue {
+            logger.debug("SWIFT-Privitty: Congratulations! New peer concluded.")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'new_peer_concluded'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerOtspSplitkeys.rawValue {
+            logger.debug("SWIFT-Privitty: Peer OTSP sent")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'OTSP_SENT'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                // let msgId = self.dcContext.sendMessage(chatId: chatId, message: message)
+                // let fromId = message.id
+                // PrivittyBridge.addMessage(msgId, chatId, fromId, "OTSP_SENT", "system", "",
+                //                          "", 0, 0, 0, 0, "", 0)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerSplitkeysRequest.rawValue {
+            logger.debug("SWIFT-Privitty: Peer SPLITKEYS request")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'SPLITKEYS_REQUEST'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerSplitkeysResponse.rawValue {
+            logger.debug("SWIFT-Privitty: Peer SPLITKEYS response")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'SPLITKEYS_RESPONSE'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerSplitkeysRevoked.rawValue {
+            logger.debug("SWIFT-Privitty: Peer SPLITKEYS revoked")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'SPLITKEYS_REVOKED'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+            // DispatchQueue.main.async {
+                // showToast("You revoked access")
+            // }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerSplitkeysRestore.rawValue {
+            logger.debug("SWIFT-Privitty: Peer SPLITKEYS undo revoked")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'SPLITKEYS_UNDO_REVOKED'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+            // DispatchQueue.main.async {
+            //    showToast("You restored access")
+            // }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusForwardSplitkeysRevoked.rawValue {
+            logger.debug("SWIFT-Privitty: Forwarded SPLITKEYS revoked: \(statusCode) ChatId: \(chatId) ForwardToChatId: \(fwdToChatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'FORWARD_SPLITKEYS_REVOKED'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: fwdToChatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusPeerSplitkeysDeleted.rawValue {
+            logger.debug("SWIFT-Privitty: Peer SPLITKEYS deleted")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'SPLITKEYS_DELETED'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusGroupAddAccepted.rawValue {
+            logger.debug("SWIFT-Privitty: Congratulations! New chat group is ready.")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'new_group_concluded'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusForwardSplitkeysRequest.rawValue ||
+                    statusCode == PrivittySDK.PrvAppStatus.prvAppStatusRevertForwardSplitkeysRequest.rawValue {
+            logger.debug("SWIFT-Privitty: Forward/Revert Request: \(statusCode) ChatId: \(chatId) ForwardToChatId: \(fwdToChatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'relay_message'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: chatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusRelayForwardSplitkeysRequest.rawValue {
+            logger.debug("SWIFT-Privitty: Relay request: \(statusCode) ChatId: \(chatId) ForwardToChatId: \(fwdToChatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'relay_request'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: fwdToChatId, message: message)
+            }
+
+        } else if statusCode == PrivittySDK.PrvAppStatus.prvAppStatusRelayBackwardSplitkeysResponse.rawValue {
+            logger.debug("SWIFT-Privitty: Relay response: \(statusCode) ChatId: \(chatId) ForwardToChatId: \(fwdToChatId)")
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let message = self.dcContext.newMessage(viewType: DC_MSG_TEXT)
+                self.dcContext.setSubject(message: message, subject: "{'privitty':'true', 'type':'relay_response'}")
+                self.dcContext.setText(message: message, text: Data(pdu).base64EncodedString())
+                self.dcContext.sendMessage(chatId: fwdToChatId, message: message)
+            }
+
+        } else {
+            logger.debug("SWIFT-Privitty: StatusCode: \(statusCode)")
+        }
     }
 }
