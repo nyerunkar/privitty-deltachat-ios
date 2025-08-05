@@ -13,6 +13,7 @@ class QrViewController: UIViewController {
     private let shareLinkButton: UIButton
 
     private lazy var moreButton: UIBarButtonItem = {
+        print("QrViewController --------->> Hey")
         let moreButtonImage = UIImage(systemName: "ellipsis.circle")
         return UIBarButtonItem(image: moreButtonImage, menu: showMoreOptions())
     }()

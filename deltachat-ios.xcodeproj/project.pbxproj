@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DE8874E2E40F9CF00D908B9 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8874C2E40F9CF00D908B9 /* VideoView.swift */; };
+		0DE8874F2E40F9CF00D908B9 /* MSDocPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE887482E40F9CF00D908B9 /* MSDocPreviewView.swift */; };
+		0DE887502E40F9CF00D908B9 /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8874A2E40F9CF00D908B9 /* PDFViewer.swift */; };
+		0DE887512E40F9CF00D908B9 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8874B2E40F9CF00D908B9 /* VideoPlayerView.swift */; };
+		0DE887522E40F9CF00D908B9 /* MSDocumentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE887492E40F9CF00D908B9 /* MSDocumentContentView.swift */; };
 		21D54500299415B9008B54D5 /* Character+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D544FF299415B9008B54D5 /* Character+Extentions.swift */; };
 		21D6C941260623F500D0755A /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D6C9392606190600D0755A /* NotificationManager.swift */; };
 		2F38BEC02E0ADBB90040C792 /* libpriv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F38BEBF2E0ADBB90040C792 /* libpriv.a */; };
@@ -312,6 +317,11 @@
 
 /* Begin PBXFileReference section */
 		0B1D823B040BA95BD9B39A31 /* Pods-deltachat-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-deltachat-ios.release.xcconfig"; path = "Target Support Files/Pods-deltachat-ios/Pods-deltachat-ios.release.xcconfig"; sourceTree = "<group>"; };
+		0DE887482E40F9CF00D908B9 /* MSDocPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDocPreviewView.swift; sourceTree = "<group>"; };
+		0DE887492E40F9CF00D908B9 /* MSDocumentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDocumentContentView.swift; sourceTree = "<group>"; };
+		0DE8874A2E40F9CF00D908B9 /* PDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
+		0DE8874B2E40F9CF00D908B9 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		0DE8874C2E40F9CF00D908B9 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		0EEC8C8D7C6F411BA7A449DE /* Pods-deltachat-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-deltachat-ios.debug.xcconfig"; path = "Target Support Files/Pods-deltachat-ios/Pods-deltachat-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		21D544FF299415B9008B54D5 /* Character+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Extentions.swift"; sourceTree = "<group>"; };
 		21D6C9392606190600D0755A /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -748,6 +758,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DE8874D2E40F9CF00D908B9 /* FilesViewer */ = {
+			isa = PBXGroup;
+			children = (
+				0DE887482E40F9CF00D908B9 /* MSDocPreviewView.swift */,
+				0DE887492E40F9CF00D908B9 /* MSDocumentContentView.swift */,
+				0DE8874A2E40F9CF00D908B9 /* PDFViewer.swift */,
+				0DE8874B2E40F9CF00D908B9 /* VideoPlayerView.swift */,
+				0DE8874C2E40F9CF00D908B9 /* VideoView.swift */,
+			);
+			path = FilesViewer;
+			sourceTree = "<group>";
+		};
 		304219D7244072E600516852 /* DC */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,6 +1014,7 @@
 		7A9FB1421FB061E2001FEA36 /* deltachat-ios */ = {
 			isa = PBXGroup;
 			children = (
+				0DE8874D2E40F9CF00D908B9 /* FilesViewer */,
 				AE57C07E2552BBC0003CFE70 /* Model */,
 				304219D7244072E600516852 /* DC */,
 				AE1988AA23EB3C7600B4CD5F /* Assets */,
@@ -1794,6 +1817,11 @@
 				D8FB04002B4F0CF100A355F8 /* EmojiView.swift in Sources */,
 				3008CB7624F95B6D00E6A617 /* AudioController.swift in Sources */,
 				3080A035277DE30100E74565 /* String+Extensions.swift in Sources */,
+				0DE8874E2E40F9CF00D908B9 /* VideoView.swift in Sources */,
+				0DE8874F2E40F9CF00D908B9 /* MSDocPreviewView.swift in Sources */,
+				0DE887502E40F9CF00D908B9 /* PDFViewer.swift in Sources */,
+				0DE887512E40F9CF00D908B9 /* VideoPlayerView.swift in Sources */,
+				0DE887522E40F9CF00D908B9 /* MSDocumentContentView.swift in Sources */,
 				5F153E9A2CC38BAA00871ABE /* GiveBackMyFirstResponder.swift in Sources */,
 				302B84CE2397F6CD001C261F /* URL+Extension.swift in Sources */,
 				7A9FB1441FB061E2001FEA36 /* AppDelegate.swift in Sources */,
@@ -2110,7 +2138,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImageWebPCoder\"",
 				);
 				INFOPLIST_FILE = DcShare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2154,7 +2182,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SDWebImageWebPCoder\"",
 				);
 				INFOPLIST_FILE = DcShare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2235,7 +2263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.58.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2294,7 +2322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.58.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -2325,7 +2353,7 @@
 					/usr/local/include,
 				);
 				INFOPLIST_FILE = "deltachat-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2399,7 +2427,7 @@
 					/usr/local/include,
 				);
 				INFOPLIST_FILE = "deltachat-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2468,7 +2496,7 @@
 				INFOPLIST_FILE = DcNotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DcNotificationService;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 merlinux GmbH. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2503,7 +2531,7 @@
 				INFOPLIST_FILE = DcNotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DcNotificationService;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 merlinux GmbH. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

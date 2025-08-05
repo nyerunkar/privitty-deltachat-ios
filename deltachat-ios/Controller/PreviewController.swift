@@ -14,6 +14,10 @@ class PreviewController: QLPreviewController {
     var dcContext: DcContext
 
     init(dcContext: DcContext, type: PreviewType) {
+        
+        
+        print("privitty PreviewController init ")
+        
         self.previewType = type
         self.dcContext = dcContext
         super.init(nibName: nil, bundle: nil)

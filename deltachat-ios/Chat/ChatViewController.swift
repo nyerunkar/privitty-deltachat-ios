@@ -6,6 +6,7 @@ import AVFoundation
 import DcCore
 import SDWebImage
 import Combine
+import SwiftUI
 
 class ChatViewController: UITableViewController, UITableViewDropDelegate {
     public let chatId: Int
@@ -189,6 +190,7 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("privitty ChatViewController.viewDidLoad")
         tableView.backgroundView = backgroundContainer
         tableView.register(TextMessageCell.self, forCellReuseIdentifier: TextMessageCell.reuseIdentifier)
         tableView.register(ImageTextCell.self, forCellReuseIdentifier: ImageTextCell.reuseIdentifier)
@@ -1119,6 +1121,7 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
         attachButton.menu = UIMenu() // otherwise .menuActionTriggered is not triggered
         attachButton.addAction(UIAction { [weak self] _ in
             attachButton.menu = self?.clipperButtonMenu()
+            print("privitty clipper menu created:----------------")
         }, for: .menuActionTriggered)
 
         let leftItems = [attachButton]
@@ -2033,7 +2036,27 @@ extension ChatViewController {
         let msgIds = dcContext.getChatMedia(chatId: chatId, messageType: Int32(message.type), messageType2: 0, messageType3: 0)
         let index = msgIds.firstIndex(of: message.id) ?? 0
 
-        navigationController?.pushViewController(PreviewController(dcContext: dcContext, type: .multi(msgIds, index)), animated: true)
+        guard let fileURL = message.fileURL else {
+            navigationController?.pushViewController(PreviewController(dcContext: dcContext, type: .multi(msgIds, index)), animated: true)
+            return
+        }
+
+        let ext = fileURL.pathExtension.lowercased()
+        
+        if ext == "pdf" {
+            let pdfView = PDFViewer(url: fileURL)
+            let hostingController = UIHostingController(rootView: pdfView)
+            navigationController?.pushViewController(hostingController, animated: true)
+
+        } else if ["xls", "xlsx", "doc", "docx", "ppt", "pptx"].contains(ext) {
+//            /*let msDocView = */MSDocPreviewView(url: fileURL)
+            let msDocView = MSDocumentContentView(url: fileURL)
+            let hostingController = UIHostingController(rootView: msDocView)
+            navigationController?.pushViewController(hostingController, animated: true)
+
+        } else {
+            navigationController?.pushViewController(PreviewController(dcContext: dcContext, type: .multi(msgIds, index)), animated: true)
+        }
     }
 
     func didTapVcard(msg: DcMsg) {

@@ -20,6 +20,8 @@ class MessageInfoViewController: UIViewController {
         super.viewDidLoad()
         title = String.localized("menu_message_details")
 
+        print("MessageInfoViewController: \(message)")
+        
         let textView = UITextView(frame: view.frame)
         textView.text = dcContext.getMsgInfo(msgId: message.id)
         textView.isEditable = false
