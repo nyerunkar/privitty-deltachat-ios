@@ -10,7 +10,9 @@ public class StatusView: UIView {
     private let locationView: UIImageView
     private let stateView: UIImageView
     private let savedView: UIImageView
-
+    private let prvSecure: UIImageView
+    private let prvFileStatus: UIImageView
+    
     override init(frame: CGRect) {
 
         dateLabel = UILabel()
@@ -24,6 +26,10 @@ public class StatusView: UIView {
 
         padlockView = UIImageView()
         padlockView.translatesAutoresizingMaskIntoConstraints = false
+        prvSecure = UIImageView()
+        prvSecure.translatesAutoresizingMaskIntoConstraints = false
+        prvFileStatus = UIImageView()
+        prvFileStatus.translatesAutoresizingMaskIntoConstraints = false
         locationView = UIImageView()
         locationView.translatesAutoresizingMaskIntoConstraints = false
         stateView = UIImageView()
@@ -31,7 +37,7 @@ public class StatusView: UIView {
         savedView = UIImageView()
         savedView.translatesAutoresizingMaskIntoConstraints = false
 
-        contentStackView = UIStackView(arrangedSubviews: [savedView, padlockView, editedLabel, dateLabel, locationView, stateView])
+        contentStackView = UIStackView(arrangedSubviews: [savedView, prvSecure, prvFileStatus, padlockView, editedLabel, dateLabel, locationView, stateView])
         contentStackView.alignment = .center
         contentStackView.spacing = 2
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +64,12 @@ public class StatusView: UIView {
             padlockView.widthAnchor.constraint(equalToConstant: 15),
             padlockView.heightAnchor.constraint(equalToConstant: 20),
 
+            prvSecure.widthAnchor.constraint(equalToConstant: 12),
+            prvSecure.heightAnchor.constraint(equalToConstant: 12),
+            
+            prvFileStatus.widthAnchor.constraint(equalToConstant: 12),
+            prvFileStatus.heightAnchor.constraint(equalToConstant: 12),
+
             locationView.widthAnchor.constraint(equalToConstant: 8),
             locationView.heightAnchor.constraint(equalToConstant: 11),
 
@@ -76,6 +88,8 @@ public class StatusView: UIView {
         dateLabel.text = nil
         editedLabel.isHidden = true
         padlockView.isHidden = true
+        prvSecure.isHidden = true
+        prvFileStatus.isHidden = true
         locationView.isHidden = true
         savedView.isHidden = true
         stateView.isHidden = true
@@ -90,8 +104,17 @@ public class StatusView: UIView {
         if message.showPadlock() {
             padlockView.image = UIImage(named: "ic_lock")?.maskWithColor(color: tintColor)
             padlockView.isHidden = false
+            
+            prvSecure.image = UIImage(named: "prv_lock")?.maskWithColor(color: tintColor)
+            prvSecure.isHidden = false
+            
+            prvFileStatus.image = UIImage(named: "prv_file_state")?.maskWithColor(color: tintColor)
+            prvFileStatus.isHidden = false
+            
         } else {
             padlockView.isHidden = true
+            prvSecure.isHidden = true
+            prvFileStatus.isHidden = true
         }
 
         if message.hasLocation {
