@@ -8,6 +8,226 @@ import SDWebImage
 import Combine
 import SwiftUI
 
+// MARK: - PopupFileAttributeViewController
+final class PopupFileAttributeViewController: UIViewController {
+    // Callbacks
+    var onNext: ((Int?, Bool, Bool) -> Void)?
+    var onCancel: (() -> Void)?
+
+    // Container
+    private let containerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemBackground
+        v.layer.cornerRadius = 12
+        v.layer.masksToBounds = true
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    private let titleLabel: UILabel = {
+        let l = UILabel()
+        l.text = "File Attribute"
+        l.textAlignment = .center
+        l.font = UIFont.preferredFont(forTextStyle: .headline)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+
+    // Label above input
+    private let tvAllowAccessTime: UILabel = {
+        let l = UILabel()
+        l.text = "File access allow time"
+        l.font = UIFont.preferredFont(forTextStyle: .body)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+
+    // 3rd Input Text = etAllowAccessTime
+    let etAllowAccessTime: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Allow access time (minutes)"
+        tf.borderStyle = .roundedRect
+        tf.keyboardType = .numberPad
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+
+    // 1st checkbox = cbAllowFileDownload
+    let cbAllowFileDownload: UIButton = {
+        let b = UIButton(type: .custom)
+        b.setImage(UIImage(systemName: "square"), for: .normal)
+        b.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        b.tintColor = DcColors.primary
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+    private let tvAllowFileDownload: UILabel = {
+        let l = UILabel()
+        l.text = "Allow Download"
+        l.font = UIFont.preferredFont(forTextStyle: .body)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+
+    // 2nd checkbox = cbAllowFileForward
+    let cbAllowFileForward: UIButton = {
+        let b = UIButton(type: .custom)
+        b.setImage(UIImage(systemName: "square"), for: .normal)
+        b.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        b.tintColor = DcColors.primary
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+    private let tvAllowFileForward: UILabel = {
+        let l = UILabel()
+        l.text = "Allow Forward"
+        l.font = UIFont.preferredFont(forTextStyle: .body)
+        l.translatesAutoresizingMaskIntoConstraints = false
+        return l
+    }()
+
+    // Buttons
+    let btNext: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("OK", for: .normal)
+        b.backgroundColor = DcColors.primary
+        b.setTitleColor(.white, for: .normal)
+        b.layer.cornerRadius = 8
+        b.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+
+    let btCancel: UIButton = {
+        let b = UIButton(type: .system)
+        b.setTitle("Cancel", for: .normal)
+        b.backgroundColor = .systemGray4
+        b.setTitleColor(.label, for: .normal)
+        b.layer.cornerRadius = 8
+        b.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        return b
+    }()
+
+    private let buttonStack: UIStackView = {
+        let s = UIStackView()
+        s.axis = .horizontal
+        s.distribution = .fillEqually
+        s.spacing = 12
+        s.translatesAutoresizingMaskIntoConstraints = false
+        return s
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        setupUI()
+        setupConstraints()
+        setupActions()
+        etAllowAccessTime.delegate = self
+    }
+
+    private func setupUI() {
+        view.addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(tvAllowAccessTime)
+        containerView.addSubview(etAllowAccessTime)
+        containerView.addSubview(cbAllowFileDownload)
+        containerView.addSubview(tvAllowFileDownload)
+        containerView.addSubview(cbAllowFileForward)
+        containerView.addSubview(tvAllowFileForward)
+        containerView.addSubview(buttonStack)
+        buttonStack.addArrangedSubview(btCancel)
+        buttonStack.addArrangedSubview(btNext)
+    }
+
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+
+            tvAllowAccessTime.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            tvAllowAccessTime.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            tvAllowAccessTime.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+
+            etAllowAccessTime.topAnchor.constraint(equalTo: tvAllowAccessTime.bottomAnchor, constant: 8),
+            etAllowAccessTime.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            etAllowAccessTime.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            etAllowAccessTime.heightAnchor.constraint(equalToConstant: 44),
+
+            cbAllowFileDownload.topAnchor.constraint(equalTo: etAllowAccessTime.bottomAnchor, constant: 20),
+            cbAllowFileDownload.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            cbAllowFileDownload.widthAnchor.constraint(equalToConstant: 24),
+            cbAllowFileDownload.heightAnchor.constraint(equalToConstant: 24),
+
+            tvAllowFileDownload.centerYAnchor.constraint(equalTo: cbAllowFileDownload.centerYAnchor),
+            tvAllowFileDownload.leadingAnchor.constraint(equalTo: cbAllowFileDownload.trailingAnchor, constant: 12),
+            tvAllowFileDownload.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+
+            cbAllowFileForward.topAnchor.constraint(equalTo: cbAllowFileDownload.bottomAnchor, constant: 16),
+            cbAllowFileForward.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            cbAllowFileForward.widthAnchor.constraint(equalToConstant: 24),
+            cbAllowFileForward.heightAnchor.constraint(equalToConstant: 24),
+
+            tvAllowFileForward.centerYAnchor.constraint(equalTo: cbAllowFileForward.centerYAnchor),
+            tvAllowFileForward.leadingAnchor.constraint(equalTo: cbAllowFileForward.trailingAnchor, constant: 12),
+            tvAllowFileForward.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+
+            buttonStack.topAnchor.constraint(equalTo: cbAllowFileForward.bottomAnchor, constant: 24),
+            buttonStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            buttonStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            buttonStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            buttonStack.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+
+    private func setupActions() {
+        cbAllowFileDownload.addTarget(self, action: #selector(toggleDownload), for: .touchUpInside)
+        cbAllowFileForward.addTarget(self, action: #selector(toggleForward), for: .touchUpInside)
+        btNext.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
+        btCancel.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ignoreBackgroundTap)))
+    }
+
+    @objc private func toggleDownload() { cbAllowFileDownload.isSelected.toggle() }
+    @objc private func toggleForward() { cbAllowFileForward.isSelected.toggle() }
+
+    @objc private func nextTapped() {
+        let minutes = Int(etAllowAccessTime.text ?? "")
+        let allowForward = cbAllowFileForward.isSelected
+        let allowDownload = cbAllowFileDownload.isSelected
+        dismiss(animated: true) { [weak self] in
+            self?.onNext?(minutes, allowForward, allowDownload)
+        }
+    }
+
+    @objc private func cancelTapped() {
+        onCancel?()
+        dismiss(animated: true)
+    }
+
+    @objc private func ignoreBackgroundTap() { }
+}
+
+extension PopupFileAttributeViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty { return true }
+        let allowed = CharacterSet.decimalDigits
+        if string.rangeOfCharacter(from: allowed.inverted) != nil { return false }
+        if let current = textField.text, let r = Range(range, in: current) {
+            let updated = current.replacingCharacters(in: r, with: string)
+            return updated.rangeOfCharacter(from: allowed.inverted) == nil
+        }
+        return true
+    }
+}
+
 class ChatViewController: UITableViewController, UITableViewDropDelegate {
     public let chatId: Int
 
@@ -998,9 +1218,8 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
             markSeenMessagesInVisibleArea()
             updateScrollDownButtonVisibility()
-            forceVoiceOverFocussingCell(at: indexPath) { [weak self] in
-                self?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-            }
+            forceVoiceOverFocussingCell(at: indexPath, postingFinished: nil)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         } else {
             UIView.animate(withDuration: animated ? 0.3 : 0) {
                 self.tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
@@ -1019,7 +1238,7 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
     // VoiceOver tends to jump and read out the top visible cell within the tableView if we
     // don't force it to refocus the cell we're interested in. Posting multiple times a .layoutChanged
     // notification doesn't cause VoiceOver to readout the cell mutliple times.
-    private func forceVoiceOverFocussingCell(at indexPath: IndexPath, postingFinished: (() -> Void)?) {
+    private func forceVoiceOverFocussingCell(at indexPath: IndexPath, postingFinished: (() -> Void)? = nil, focusWithVoiceOver: Bool = true) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self else { return }
             for _ in 1...4 {
@@ -1120,8 +1339,7 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
         attachButton.showsMenuAsPrimaryAction = true
         attachButton.menu = UIMenu() // otherwise .menuActionTriggered is not triggered
         attachButton.addAction(UIAction { [weak self] _ in
-            attachButton.menu = self?.clipperButtonMenu()
-            print("privitty clipper menu created:----------------")
+            self?.popupFileAttribute()
         }, for: .menuActionTriggered)
 
         let leftItems = [attachButton]
@@ -1138,6 +1356,21 @@ class ChatViewController: UITableViewController, UITableViewDropDelegate {
                 UIView.animate(withDuration: 0.3, animations: {
                     item.backgroundColor = DcColors.colorDisabled
                 })}
+    }
+
+    private func popupFileAttribute() {
+        let vc = PopupFileAttributeViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        vc.onNext = { [weak self] minutes, allowForward, allowDownload in
+            print("minutes:", minutes ?? -1)
+            print("allow forward:", allowForward)
+            print("allow download:", allowDownload)
+            self?.showFilesLibrary()
+            print("privitty ---- ")
+        }
+        vc.onCancel = { }
+        present(vc, animated: true)
     }
 
     @objc private func chatProfilePressed() {
